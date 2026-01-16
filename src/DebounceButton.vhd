@@ -4,16 +4,16 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 
-entity NextStateButton is
+entity DebounceButton is
     Port ( 
         clk : in STD_LOGIC;
         reset : in STD_LOGIC;
         btn_next : in STD_LOGIC;           -- Physical button input
         next_generation : out STD_LOGIC    -- Pulse to advance one generation
     );
-end NextStateButton;
+end DebounceButton;
 
-architecture Behavioral of NextStateButton is
+architecture Behavioral of DebounceButton is
     
     -- Button synchronization register (for debouncing)
     signal btn_sync : STD_LOGIC_VECTOR(2 downto 0) := "000";

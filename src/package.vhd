@@ -29,21 +29,11 @@ use IEEE.NUMERIC_STD.ALL;
 -- any Xilinx leaf cells in this code.
 --library UNISIM;
 --use UNISIM.VComponents.all;
-package game_of_life_pkg is
-    -- game_logic
+package typing_characters_pkg is
 
-    constant GRID_SIZE : integer := 32;
-    constant Neighbors_number_to_live : integer := 3;  -- Number of neighbors required to live
-    constant Neighbors_number_to_survive : integer := 2;  -- Number of neighbors
-    constant CELL_PIXEL_SIZE : integer := 15; -- Size of each cell in pixels
 
-    type t_state is array (0 to GRID_SIZE-1, 0 to GRID_SIZE-1) of STD_LOGIC;
-constant initial_state : t_state := (others => (others => '0')) ;
--- game modes
-    type t_game_mode is (MANUAL, AUTOMATIC, EDITING);  -- Define game modes
     -- clock divider
     constant DIV_FACTOR_CLOCK : integer := 2; -- Adjust for desired frequency
-    constant DIV_FACTOR_GAME_LOGIC : integer := 25000000; -- Adjust for game logic frequency
     -- horizontal_counter
     constant HORIZONTAL_COUNT_MAX : integer := 799; -- Horizontal count max value
     constant VERTICAL_COUNT_MAX : integer := 520; -- Vertical count max value
@@ -70,5 +60,16 @@ constant initial_state : t_state := (others => (others => '0')) ;
     constant x_margin : INTEGER := (x_resolution-y_resolution)/2;
     constant y_margin : INTEGER := 0;
     
-    
-end package game_of_life_pkg;
+    -- pixel logic
+
+    constant NUMBER_OF_LETTERS_IN_ROW : integer := 32;
+    constant NUMBER_of_ROWS_OF_LETTERS : integer := 15;
+    constant LETTER_WIDTH : integer := x_resolution / NUMBER_OF_LETTERS_IN_ROW; -- Width of each letter in pixels 20
+    constant LETTER_HEIGHT : integer := y_resolution / NUMBER_of_ROWS_OF_LETTERS; -- Height of each letter in pixels 15
+    type T_LETTER is (A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z,
+                     ZERO, ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE,
+                     SPACE, EXCLAMATION_MARK, COMMA, PERIOD);
+    type T_LETTER_BUFFER is array (0 to LETTER_HEIGHT*LETTER_WIDTH-1 ) of t_letter;
+    constant LETTER_BUFFER : T_LETTER_BUFFER := (others => SPACE);
+
+end package typing_characters_pkg;

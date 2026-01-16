@@ -2,20 +2,18 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
 use IEEE.NUMERIC_STD.ALL;
-use work.game_of_life_pkg.all;
+use work.typing_characters_pkg.all;
 entity vga_controller is
     Port (
 
         divided_clk         : in  STD_LOGIC;
         rst         : in  STD_LOGIC;
 
-        x_count     : out STD_LOGIC_VECTOR(9 downto 0);
-        y_count     : out STD_LOGIC_VECTOR(9 downto 0);
+        is_display_region : out STD_LOGIC;
+        x_pixel     : out STD_LOGIC_VECTOR(9 downto 0);
+        y_pixel     : out STD_LOGIC_VECTOR(9 downto 0);
         hsync       : out STD_LOGIC;
-        vsync       : out STD_LOGIC;
-        red         : out STD_LOGIC_VECTOR(3 downto 0);
-        green       : out STD_LOGIC_VECTOR(3 downto 0);
-        blue        : out STD_LOGIC_VECTOR(3 downto 0)
+        vsync       : out STD_LOGIC
     );
 end vga_controller;
 
@@ -28,12 +26,11 @@ architecture Behavioral of vga_controller is
     signal h_tc : STD_LOGIC := '0';
     signal is_display_region_h : STD_LOGIC := '0';
     signal is_display_region_v : STD_LOGIC := '0';
-    signal is_display_region : STD_LOGIC := '0';
 
     begin
     -- Instantiate the horizontal counter
-    x_count <= sig_h_count;
-    y_count <= sig_v_count;
+    x_pixel <= sig_h_count;
+    y_pixel <= sig_v_count;
     horizental_counter_inst : entity work.horizental_counter
         Port map (
             clk       => divided_clk,

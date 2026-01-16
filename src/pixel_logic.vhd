@@ -1,18 +1,20 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
+use work.typing_characters_pkg.all;
 
 entity pixel_logic is
-    generic (
-        WIDTH  : integer := 640;
-        HEIGHT : integer := 480
-    );
+
     port (
         clk         : in std_logic;
         rst         : in std_logic;
-        pixel_x     : in unsigned(9 downto 0);
-        pixel_y     : in unsigned(8 downto 0);
-        pixel_data  : out std_logic_vector(23 downto 0)  -- RGB 8-bit each
+        x_pixel     : in unsigned(9 downto 0);
+        y_pixel     : in unsigned(9 downto 0);
+        is_display_region : in STD_LOGIC;
+
+        red         : out STD_LOGIC_VECTOR(3 downto 0);
+        green       : out STD_LOGIC_VECTOR(3 downto 0);
+        blue        : out STD_LOGIC_VECTOR(3 downto 0)
     );
 end entity pixel_logic;
 

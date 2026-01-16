@@ -3,7 +3,8 @@ use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.STD_LOGIC_ARITH.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
 use IEEE.NUMERIC_STD.ALL;
-use work.game_of_life_pkg.all;
+use work.typing_characters_pkg.all;
+
 entity vertical_counter is
     Port (
         clk : in STD_LOGIC;         -- Clock signal
