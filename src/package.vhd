@@ -62,14 +62,14 @@ package typing_characters_pkg is
     
     -- pixel logic
 
-    constant NUMBER_OF_LETTERS_IN_ROW : integer := 32;
-    constant NUMBER_of_ROWS_OF_LETTERS : integer := 15;
-    constant LETTER_WIDTH : integer := x_resolution / NUMBER_OF_LETTERS_IN_ROW; -- Width of each letter in pixels 20
-    constant LETTER_HEIGHT : integer := y_resolution / NUMBER_of_ROWS_OF_LETTERS; -- Height of each letter in pixels 15
-    type T_LETTER is (A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z,
-                     ZERO, ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE,
-                     SPACE, EXCLAMATION_MARK, COMMA, PERIOD);
-    type T_LETTER_BUFFER is array (0 to LETTER_HEIGHT*LETTER_WIDTH-1 ) of t_letter;
-    constant LETTER_BUFFER : T_LETTER_BUFFER := (others => SPACE);
+    constant NUMBER_OF_LETTERS_IN_ROW : integer := 80;
+    constant NUMBER_of_ROWS_OF_LETTERS : integer := 30;
+    constant LETTER_WIDTH : integer := x_resolution / NUMBER_OF_LETTERS_IN_ROW; -- Width of each letter in pixels 8
+    constant LETTER_HEIGHT : integer := y_resolution / NUMBER_of_ROWS_OF_LETTERS; -- Height of each letter in pixels 16
+    -- type T_LETTER is (A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z,
+    --                  ZERO, ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE,
+    --                  SPACE, EXCLAMATION_MARK, COMMA, PERIOD);
+    type T_LETTER_BUFFER is array (0 to LETTER_HEIGHT*LETTER_WIDTH-1 ) of std_logic_vector(7 downto 0);
+    constant LETTER_BUFFER : T_LETTER_BUFFER := (others => 0);
 
 end package typing_characters_pkg;

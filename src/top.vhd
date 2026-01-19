@@ -36,10 +36,7 @@ entity top is
  Port (
     clk   : in  STD_LOGIC;          -- System clock
     reset_button : in  STD_LOGIC;          -- Reset signal
-    next_state_button : in  STD_LOGIC;          -- Button to trigger next state
-    change_mode_button : in  STD_LOGIC;          -- Button to change mode
-    move_cursor_left : in  STD_LOGIC;          -- Button to move cursor left
-    move_cursor_down : in  STD_LOGIC;          -- Button to move cursor down
+
     hsync : out STD_LOGIC;          -- Horizontal sync signal for VGA
     vsync : out STD_LOGIC;          -- Vertical sync signal for VGA
     red   : out STD_LOGIC_VECTOR(3 downto 0); -- Red
@@ -49,8 +46,10 @@ entity top is
 end top;
 
 architecture Behavioral of top is
-    signal divided_clk : STD_LOGIC; -- Divided clock signal for VGA timing
-
+    signal divided_clk : STD_LOGIC; 
+    signal is_display_region : STD_LOGIC;
+    signal x_pixel :std_logic_vector (9 downto 0);
+    signal y_pixel :std_logic_vector (9 downto 0);    
 begin
 
 
@@ -65,18 +64,25 @@ begin
         clk_out => divided_clk
     );
     -- Instantiate the VGA controller
-    vga_controller_inst : entity work.VGA_controller
-        Port map (
-            divided_clk => divided_clk,
-            rst => reset_button,
-            game_mode => game_mode,
-            cursor_x => cursor_x, 
-            cursor_y => cursor_y, 
-            display_finished => display_finished,
-            hsync => hsync,
-            vsync => vsync,
-            red => red,
-            green => green,
-            blue => blue
-        );
+    vga_controller_inst: entity work.vga_controller
+     port map(
+        divided_clk => divided_clk,
+        rst => reset_button,
+        is_display_region => is_display_region,
+        x_pixel => x_pixel,
+        y_pixel => y_pixel,
+        hsync => hsync,
+        vsync => vsync
+    );
+    pixel_logic_inst: entity work.pixel_logic
+     port map(
+        rom_clock => clk,
+        rst => reset_button,
+        x_pixel => x_pixel,
+        y_pixel => y_pixel,
+        is_display_region => is_display_region,
+        red => red,
+        green => green,
+        blue => blue
+    );
 end Behavioral;

@@ -29,8 +29,8 @@ architecture Behavioral of vga_controller is
 
     begin
     -- Instantiate the horizontal counter
-    x_pixel <= sig_h_count;
-    y_pixel <= sig_v_count;
+    x_pixel <= sig_h_count - H_DISPLAY_START - to_unsigned(x_margin,10);
+    y_pixel <= sig_v_count - V_DISPLAY_START - to_unsigned(y_margin,10);
     horizental_counter_inst : entity work.horizental_counter
         Port map (
             clk       => divided_clk,
@@ -89,41 +89,5 @@ architecture Behavioral of vga_controller is
         is_within          => is_display_region_v
         );
     is_display_region <= is_display_region_h and is_display_region_v;
-    -- -- Set color output based on display region
-    -- process(is_display_region, sig_h_count, sig_v_count, cell_state) 
-    -- variable x_cell : integer ;
-    -- variable y_cell : integer ;
-    -- variable x_pixel : integer ;
-    -- variable y_pixel : integer ;
-    -- begin
-    --     x_pixel := to_integer(unsigned(h_count)) - to_integer(unsigned(H_DISPLAY_START))-x_margin;
-    --     y_pixel := to_integer(unsigned(v_count)) - to_integer(unsigned(V_DISPLAY_START))-y_margin;
-    --     x_cell  := x_pixel/CELL_PIXEL_SIZE;
-    --     y_cell  := y_pixel/CELL_PIXEL_SIZE;
-    --     if is_display_region = '1' then
-    --         if x_pixel >= 0 and x_pixel < GRID_SIZE*CELL_PIXEL_SIZE and y_pixel >= 0 and y_pixel < GRID_SIZE*CELL_PIXEL_SIZE then
-    --             if x_cell = cursor_x and y_cell = cursor_y and game_mode = EDITING then
-    --                 red   <= "1111";  -- Highlight cursor position
-    --                 green <= "0000";
-    --                 blue  <= "0000";
-    --             elsif cell_state(y_cell, x_cell) = '1' then
-    --                 red   <= "1111";
-    --                 green <= "1111";
-    --                 blue  <= "1111";
-    --             else
-    --                 red   <= "0000";
-    --                 green <= "0000";
-    --                 blue  <= "0000";
-    --             end if;
-    --         else
-    --             red   <= "0000";
-    --             green <= "0000";
-    --             blue  <= "0000";
-    --         end if;
-    --     else
-    --         red   <= "0000";
-    --         green <= "0000";
-    --         blue  <= "0000";
-    --     end if;
-    -- end process;    
+
 end architecture Behavioral;
