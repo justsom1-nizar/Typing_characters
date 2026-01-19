@@ -70,6 +70,6 @@ package typing_characters_pkg is
     --                  ZERO, ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE,
     --                  SPACE, EXCLAMATION_MARK, COMMA, PERIOD);
     type T_LETTER_BUFFER is array (0 to LETTER_HEIGHT*LETTER_WIDTH-1 ) of std_logic_vector(7 downto 0);
-    constant LETTER_BUFFER : T_LETTER_BUFFER := (others => 0);
+    constant LETTER_BUFFER : T_LETTER_BUFFER := (others => x"00");
 
 end package typing_characters_pkg;

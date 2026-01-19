@@ -11,7 +11,7 @@ entity Letters_buffer is
 end entity Letters_buffer;
 
 architecture rtl of Letters_buffer is
-    signal letters_buffer : T_LETTER_BUFFER := (others => 0);
+    signal letters_buffer : T_LETTER_BUFFER := (others => x"00");
     signal char_x : natural range 0 to NUMBER_OF_LETTERS_IN_ROW-1;
     signal char_y : natural range 0 to NUMBER_of_ROWS_OF_LETTERS-1;
     signal position : natural range 0 to NUMBER_of_ROWS_OF_LETTERS*NUMBER_OF_LETTERS_IN_ROW-1;

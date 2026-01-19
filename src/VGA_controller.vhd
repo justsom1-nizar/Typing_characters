@@ -1,7 +1,7 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
-use IEEE.NUMERIC_STD.ALL;
+use ieee.numeric_std.all;
 use work.typing_characters_pkg.all;
 entity vga_controller is
     Port (
@@ -29,8 +29,8 @@ architecture Behavioral of vga_controller is
 
     begin
     -- Instantiate the horizontal counter
-    x_pixel <= sig_h_count - H_DISPLAY_START - to_unsigned(x_margin,10);
-    y_pixel <= sig_v_count - V_DISPLAY_START - to_unsigned(y_margin,10);
+    x_pixel <= std_logic_vector(unsigned(sig_h_count) - unsigned(H_DISPLAY_START) - to_unsigned(x_margin, 10));
+    y_pixel <= std_logic_vector(unsigned(sig_v_count) - unsigned(V_DISPLAY_START) - to_unsigned(y_margin,10));
     horizental_counter_inst : entity work.horizental_counter
         Port map (
             clk       => divided_clk,
